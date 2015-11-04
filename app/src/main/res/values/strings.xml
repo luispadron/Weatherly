@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Weatherly</string>
     <string name="action_settings">Settings</string>
+    <string name="http_error_title">Http Error</string>
+    <string name="http_error_message">There was an error connecting to the server, please try again later.</string>
+    <string name="network_error_title">Network Error</string>
+    <string name="network_error_message">No internet connection detected, please try again later.</string>
+    <string name="unknown_error_message">Oops, don\'t know what went wrong, try again later.\nSorry!</string>
+    <string name="unknown_error_title">Unknown Error</string>
 </resources>
