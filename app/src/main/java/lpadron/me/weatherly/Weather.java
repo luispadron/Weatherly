@@ -1,11 +1,11 @@
 package lpadron.me.weatherly;
 
 public class Weather {
-    private String icon;
     private long time;
     private Double temp;
     private Double humidity;
     private Double percip;
+    private String icon;
     private String summary;
 
     public String getIcon() {
