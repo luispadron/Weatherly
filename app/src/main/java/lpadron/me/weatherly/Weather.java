@@ -1,5 +1,9 @@
 package lpadron.me.weatherly;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 public class Weather {
     private long time;
     private Double temp;
@@ -7,6 +11,15 @@ public class Weather {
     private Double percip;
     private String icon;
     private String summary;
+    private String timeZone;
+
+    public String getTimeZone() {
+        return timeZone;
+    }
+
+    public void setTimeZone(String timeZone) {
+        this.timeZone = timeZone;
+    }
 
     public String getIcon() {
         return icon;
@@ -18,6 +31,17 @@ public class Weather {
 
     public long getTime() {
         return time;
+    }
+
+    public String getFormattedTime() {
+        /* Format the time and return as string
+         * Time will be formatted into hours:minutes am/pm */
+        SimpleDateFormat formatter = new SimpleDateFormat("h:mm a");
+        formatter.setTimeZone(TimeZone.getTimeZone(this.timeZone));
+        Date dateFromTime = new Date (this.time * 1000);
+        String formattedTime = formatter.format(dateFromTime);
+
+        return formattedTime;
     }
 
     public void setTime(long time) {

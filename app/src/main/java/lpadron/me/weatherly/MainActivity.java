@@ -95,6 +95,9 @@ public class MainActivity extends AppCompatActivity {
         currentWeather.setSummary(currentData.getString("summary"));
         currentWeather.setTime(currentData.getLong("time"));
         currentWeather.setTemp(currentData.getDouble("temperature"));
+        currentWeather.setTimeZone(timeZone);
+
+        Log.d(TAG, currentWeather.getFormattedTime());
 
         return currentWeather;
     }
