@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         String apiKey = "a45f738558f376111212234d47a716f6";
         double latitude = 37.8267;
@@ -82,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
     private Weather getCurrentWeather(String data) throws JSONException {
         JSONObject baseData = new JSONObject(data);
         String timeZone = baseData.getString("timezone");
-        Log.i(TAG, "From JSON: " + timeZone);
 
         /* Get Current Weather data and create Weather object with data */
         JSONObject currentData = baseData.getJSONObject("currently");
@@ -96,8 +93,6 @@ public class MainActivity extends AppCompatActivity {
         currentWeather.setTime(currentData.getLong("time"));
         currentWeather.setTemp(currentData.getDouble("temperature"));
         currentWeather.setTimeZone(timeZone);
-
-        Log.d(TAG, currentWeather.getFormattedTime());
 
         return currentWeather;
     }
