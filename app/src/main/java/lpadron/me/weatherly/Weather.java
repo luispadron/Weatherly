@@ -90,24 +90,27 @@ public class Weather {
         this.time = time;
     }
 
-    public Double getTemp() {
-        return temp;
+    public int getTemp() {
+        /* Round down for purpose of UI */
+        return (int) Math.round(temp);
     }
 
     public void setTemp(Double temp) {
         this.temp = temp;
     }
 
-    public Double getHumidity() {
-        return humidity;
+    public int getHumidity() {
+        Double humidityPercentage = humidity * 100;
+        return (int) Math.round(humidityPercentage);
     }
 
     public void setHumidity(Double humidity) {
         this.humidity = humidity;
     }
 
-    public Double getPercip() {
-        return percip;
+    public int getPercip() {
+        Double precipPercentage = percip * 100;
+        return (int) Math.round(precipPercentage);
     }
 
     public void setPercip(Double percip) {
