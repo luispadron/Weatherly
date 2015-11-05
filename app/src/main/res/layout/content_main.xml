@@ -30,4 +30,35 @@
         android:layout_toEndOf="@+id/tempLabel"
         android:layout_marginTop="20dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5:29 PM"
+        android:id="@+id/timeLabel"
+        android:layout_above="@+id/degreeIcon"
+        android:layout_centerHorizontal="true"
+        android:textColor="#80ffffff" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/weatherIcon"
+        android:layout_marginBottom="34dp"
+        android:src="@drawable/partly_cloudy"
+        android:layout_above="@+id/timeLabel"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Orlando, Florida"
+        android:id="@+id/locationLabel"
+        android:layout_above="@+id/weatherIcon"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffffffff"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="20dp" />
+
+
 </RelativeLayout>
