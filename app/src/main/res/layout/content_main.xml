@@ -18,7 +18,8 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:textColor="#ffffff"
-        android:textSize="100sp" />
+        android:textSize="100sp"
+        android:gravity="center_horizontal" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -37,7 +38,8 @@
         android:id="@+id/timeLabel"
         android:layout_above="@+id/degreeIcon"
         android:layout_centerHorizontal="true"
-        android:textColor="#80ffffff" />
+        android:textColor="#80ffffff"
+        android:gravity="center_horizontal" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -46,7 +48,6 @@
         android:layout_marginBottom="34dp"
         android:src="@drawable/partly_cloudy"
         android:layout_above="@+id/timeLabel"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -58,7 +59,76 @@
         android:layout_centerHorizontal="true"
         android:textColor="#ffffffff"
         android:layout_marginBottom="40dp"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Good afternoon Luis, partly cloudy today."
+        android:id="@+id/greetingLabel"
+        android:textColor="#ffffffff"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/tempLabel"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/greetingLabel"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="20dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HUMIDITY"
+                android:id="@+id/humidityLabel"
+                android:textColor="#80ffffff"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10%"
+                android:id="@+id/humidityValue"
+                android:textColor="#ffffffff"
+                android:textSize="24sp"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RAIN/SNOW"
+                android:id="@+id/percipLabel"
+                android:textColor="#80ffffff"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100%"
+                android:id="@+id/percipValue"
+                android:textColor="#ffffffff"
+                android:textSize="24sp"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+    </LinearLayout>
 
 
 </RelativeLayout>
