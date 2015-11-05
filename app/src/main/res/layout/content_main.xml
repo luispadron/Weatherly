@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="100"
-        android:id="@+id/textView"
+        android:id="@+id/tempLabel"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:textColor="#ffffff"
@@ -23,10 +23,11 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
+        android:id="@+id/degreeIcon"
         android:src="@drawable/degree"
-        android:layout_alignTop="@+id/textView"
-        android:layout_toRightOf="@+id/textView"
-        android:layout_toEndOf="@+id/textView"
+        android:layout_alignTop="@+id/tempLabel"
+        android:layout_toRightOf="@+id/tempLabel"
+        android:layout_toEndOf="@+id/tempLabel"
         android:layout_marginTop="20dp" />
+
 </RelativeLayout>
