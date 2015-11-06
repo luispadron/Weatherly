@@ -5,9 +5,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-/**
- * Created by luispadron on 11/5/15.
- */
 public class Greeting {
     private long time;
     private String timeZone;
@@ -37,7 +34,7 @@ public class Greeting {
         this.time = time;
     }
 
-    public String getCorrectGreeting(){
+    public String getCorrectGreeting() {
         Date datetime = new Date (this.time * 1000);
         Calendar cal = Calendar.getInstance();
         cal.setTimeZone(TimeZone.getTimeZone(timeZone));
@@ -45,7 +42,7 @@ public class Greeting {
 
         int hour = cal.get(Calendar.HOUR_OF_DAY);
 
-        if (hour == 0 || hour <= 11){
+        if (hour  >= 5 && hour < 11){
             return greetings.get(0);
         }else if (hour > 11 && hour < 17) {
             return greetings.get(1);
