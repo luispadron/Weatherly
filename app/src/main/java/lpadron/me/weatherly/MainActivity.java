@@ -6,8 +6,10 @@ import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,11 +35,12 @@ import java.io.IOException;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    public Weather weather = new Weather();
+    private Weather weather = new Weather();
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     /* Butter knife references */
     @Bind(R.id.tempLabel) TextView tempLabel;
@@ -46,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.greetingLabel) TextView greetingLabel;
     @Bind(R.id.humidityValue) TextView humidityLabel;
     @Bind(R.id.percipValue) TextView percipLabel;
-
+    @Bind(R.id.progressBar) ProgressBar progressBar;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +58,17 @@ public class MainActivity extends AppCompatActivity {
 
         /* Butter knife creates the variables */
         ButterKnife.bind(this);
+        progressBar.setVisibility(View.INVISIBLE);
 
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+
+        swipeRefreshLayout.setOnRefreshListener(this);
+        
+        getForecast();
+    }
+
+    private void getForecast() {
+        String apiKey = "a45f738558f376111212234d47a716f6";
         double latitude = 28.537448;
         double longitude = -81.379026;
 
@@ -67,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 + longitude;
 
         if (isNetwork()){
-
+            toggleProgressBar();
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder().url(finalUrl).build();
 
@@ -80,11 +94,17 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onResponse(Response response) throws IOException {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            toggleProgressBar();
+                        }
+                    });
                     try {
                         String jsonData = response.body().string();
                         Log.v(TAG, jsonData);
                         /* If we can connect and retrieve */
-                        if (response.isSuccessful()){
+                        if (response.isSuccessful()) {
                             weather = getCurrentWeather(jsonData);
                             /* When user click the refresh button
                              * recheck the forcast.io data for new one
@@ -108,6 +128,14 @@ public class MainActivity extends AppCompatActivity {
             });
         }else {
             reportNetworkError();
+        }
+    }
+
+    private void toggleProgressBar() {
+        if (progressBar.getVisibility() == View.INVISIBLE){
+            progressBar.setVisibility(View.VISIBLE);
+        }else {
+            progressBar.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -162,5 +190,16 @@ public class MainActivity extends AppCompatActivity {
     private void reportNetworkError(){
         ReportNetworkErrorFragment error = new ReportNetworkErrorFragment();
         error.show(getFragmentManager(), "network error");
+    }
+
+    @Override public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getForecast();
+                updateData();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        }, 500);
     }
 }
