@@ -35,12 +35,11 @@ import java.io.IOException;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
     private Weather weather = new Weather();
-    private SwipeRefreshLayout swipeRefreshLayout;
 
     /* Butter knife references */
     @Bind(R.id.tempLabel) TextView tempLabel;
@@ -59,10 +58,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         /* Butter knife creates the variables */
         ButterKnife.bind(this);
         progressBar.setVisibility(View.INVISIBLE);
-
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-
-        swipeRefreshLayout.setOnRefreshListener(this);
         
         getForecast();
     }
@@ -190,16 +185,5 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     private void reportNetworkError(){
         ReportNetworkErrorFragment error = new ReportNetworkErrorFragment();
         error.show(getFragmentManager(), "network error");
-    }
-
-    @Override public void onRefresh() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                getForecast();
-                updateData();
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        }, 500);
     }
 }
