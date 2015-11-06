@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.greetingLabel) TextView greetingLabel;
     @Bind(R.id.humidityValue) TextView humidityLabel;
     @Bind(R.id.percipValue) TextView percipLabel;
-
+    @Bind(R.id.progressBar) ProgressBar progressBar;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
         /* Butter knife creates the variables */
         ButterKnife.bind(this);
 
+        progressBar.setVisibility(View.INVISIBLE);
+
+        getForecast();
+    }
+
+    private void getForecast() {
         String apiKey = "a45f738558f376111212234d47a716f6";
         double latitude = 28.537448;
         double longitude = -81.379026;
@@ -62,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 + longitude;
 
         if (isNetwork()){
-
+            toggleProgressBar();
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder().url(finalUrl).build();
 
@@ -72,9 +79,14 @@ public class MainActivity extends AppCompatActivity {
                 public void onFailure(Request request, IOException e) {
 
                 }
-
                 @Override
                 public void onResponse(Response response) throws IOException {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            toggleProgressBar();
+                        }
+                    });
                     try {
                         String jsonData = response.body().string();
                         Log.v(TAG, jsonData);
@@ -103,6 +115,14 @@ public class MainActivity extends AppCompatActivity {
             });
         }else {
             reportNetworkError();
+        }
+    }
+
+    private void toggleProgressBar() {
+        if (progressBar.getVisibility() == View.INVISIBLE){
+            progressBar.setVisibility(View.VISIBLE);
+        }else {
+            progressBar.setVisibility(View.INVISIBLE);
         }
     }
 
