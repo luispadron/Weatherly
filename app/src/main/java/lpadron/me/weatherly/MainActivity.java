@@ -49,7 +49,9 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.greetingLabel) TextView greetingLabel;
     @Bind(R.id.humidityValue) TextView humidityLabel;
     @Bind(R.id.percipValue) TextView percipLabel;
+    @Bind(R.id.refreshImageView) ImageView refreshImageView;
     @Bind(R.id.progressBar) ProgressBar progressBar;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +59,15 @@ public class MainActivity extends AppCompatActivity {
 
         /* Butter knife creates the variables */
         ButterKnife.bind(this);
+
         progressBar.setVisibility(View.INVISIBLE);
+
+        refreshImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getForecast();
+            }
+        });
         
         getForecast();
     }
@@ -128,9 +138,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void toggleProgressBar() {
         if (progressBar.getVisibility() == View.INVISIBLE){
+            refreshImageView.setVisibility(View.INVISIBLE);
             progressBar.setVisibility(View.VISIBLE);
         }else {
             progressBar.setVisibility(View.INVISIBLE);
+            refreshImageView.setVisibility(View.VISIBLE);
         }
     }
 

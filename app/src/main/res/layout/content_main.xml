@@ -56,9 +56,27 @@
         android:layout_above="@+id/weatherIcon"
         android:layout_centerHorizontal="true"
         android:textColor="#ffffffff"
-        android:layout_marginBottom="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="25dp"
         android:gravity="center_horizontal" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/refreshImageView"
+        android:layout_above="@id/locationLabel"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/refresh" />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@+id/refreshImageView" />
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -125,13 +143,5 @@
                 android:layout_gravity="center_horizontal" />
         </LinearLayout>
     </LinearLayout>
-
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        android:layout_above="@+id/locationLabel"
-        android:layout_centerHorizontal="true" />
-
 
 </RelativeLayout>
