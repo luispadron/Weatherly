@@ -55,9 +55,14 @@ public class MainActivity extends AppCompatActivity {
         /* Butter knife creates the variables */
         ButterKnife.bind(this);
 
-        String apiKey = "a45f738558f376111212234d47a716f6";
         double latitude = 28.537448;
         double longitude = -81.379026;
+
+        getForecast(latitude,longitude);
+    }
+
+    private void getForecast(double latitude, double longitude) {
+        String apiKey = "a45f738558f376111212234d47a716f6";
         String finalUrl = "https://api.forecast.io/forecast/" + apiKey + "/" + latitude + ","
                 + longitude;
 
