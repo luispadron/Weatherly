@@ -2,6 +2,7 @@ package lpadron.me.weatherly;
 
 import android.app.FragmentManager;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -18,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +40,6 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
-
     private Weather weather = new Weather();
 
     /* Butter knife references */
@@ -56,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         /* Butter knife creates the variables */
         ButterKnife.bind(this);
 
@@ -147,12 +147,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateData() {
+        /* Set the background color */
+        RelativeLayout screen = (RelativeLayout) findViewById(R.id.screen);
+        ScreenColor screenColor = new ScreenColor(weather.getTime(), weather.getTimeZone());
+        screen.setBackgroundColor(getResources().getColor(screenColor.getCorrectColor()));
+        /* Set the temperature and time labels */
         tempLabel.setText(weather.getTemp() + "");
         timeLabel.setText(weather.getFormattedTime());
+        /* Get/set the correct greeting based on time of day */
         Greeting greeting = new Greeting(weather.getTime(), weather.getTimeZone());
         greetingLabel.setText(greeting.getCorrectGreeting());
+        /* Set the current humidity and percipitation labels */
         humidityLabel.setText(weather.getHumidity() + "%");
         percipLabel.setText(weather.getPercip() + "%");
+        /* Get and set the correct weather icon */
         Drawable drawable = getResources().getDrawable(weather.getIconId());
         iconView.setImageDrawable(drawable);
     }
