@@ -2,5 +2,10 @@
 <resources>
     <!-- Colors for the background of the screen  -->
     <color name="defaultColor">#3F51B5</color>
-    <color name="earlyMorning">#FDD835</color>
+    <color name="earlyMorning">#81D4FA</color>
+    <color name="lateMorning">#29B6F6</color>
+    <color name="earlyAfternoon">#039BE5</color>
+    <color name="lateAfternoon">#03A9F4</color>
+    <color name="earlyEvening">#4A148C</color>
+    <color name="lateEvening">#283593</color>
 </resources>
