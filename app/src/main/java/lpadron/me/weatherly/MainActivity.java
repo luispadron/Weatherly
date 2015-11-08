@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
     private Weather weather = new Weather();
+    private double latitude = 28.537448;
+    private double longitude = -81.379026;
 
     /* Butter knife references */
     @Bind(R.id.tempLabel) TextView tempLabel;
@@ -73,14 +75,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getForecast() {
-        String apiKey = "a45f738558f376111212234d47a716f6";
-        double latitude = 28.537448;
-        double longitude = -81.379026;
-
-        getForecast(latitude,longitude);
-    }
-
-    private void getForecast(double latitude, double longitude) {
         String apiKey = "a45f738558f376111212234d47a716f6";
         String finalUrl = "https://api.forecast.io/forecast/" + apiKey + "/" + latitude + ","
                 + longitude;
