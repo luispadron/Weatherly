@@ -1,5 +1,6 @@
 package lpadron.me.weatherly;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Color;
@@ -37,7 +38,7 @@ import java.io.IOException;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
     private Weather weather = new Weather();
@@ -71,6 +72,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         
+        getForecast();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         getForecast();
     }
 
