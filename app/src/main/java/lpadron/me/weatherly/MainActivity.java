@@ -5,6 +5,13 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.location.LocationListener;
+
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -24,6 +31,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
@@ -34,16 +44,25 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements GoogleApiClient.OnConnectionFailedListener,
+        GoogleApiClient.ConnectionCallbacks, LocationListener{
 
     public static final String TAG = MainActivity.class.getSimpleName();
     private Weather weather = new Weather();
-    private double latitude = 28.537448;
-    private double longitude = -81.379026;
+    private GoogleApiClient mGoogleApiClient;
+    private Location location;
+    private LocationRequest locationRequest;
+    private Context context = this;
+//    private double latitude = 28.537448;
+//    private double longitude = -81.379026;
+    private double latitude;
+    private double longitude;
 
     /* Butter knife references */
     @Bind(R.id.tempLabel) TextView tempLabel;
@@ -63,6 +82,19 @@ public class MainActivity extends Activity {
         /* Butter knife creates the variables */
         ButterKnife.bind(this);
 
+        /* Startup location services */
+        locationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setSmallestDisplacement(2000) //minimum distance of 5,000 meters before checking
+                .setInterval(1 * 10000)        // 10 seconds, in milliseconds
+                .setFastestInterval(1 * 1000); // 1 second, in milliseconds
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+
         progressBar.setVisibility(View.INVISIBLE);
 
         refreshImageView.setOnClickListener(new View.OnClickListener() {
@@ -71,15 +103,82 @@ public class MainActivity extends Activity {
                 getForecast();
             }
         });
-        
-        getForecast();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (!mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.connect();
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        if (!mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.connect();
+        }
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopLocationUpdates();
+        if (mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
+        }
+    }
+
+    /* Location related methods */
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        location = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient);
+        LocationServices
+                .FusedLocationApi
+                .requestLocationUpdates(mGoogleApiClient, locationRequest, this);
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        longitude = location.getLongitude();
+        latitude = location.getLatitude();
         getForecast();
     }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+
+    }
+
+    protected void stopLocationUpdates() {
+        Log.i("STOPPING" , "STOPPING LOCATION UPDATES");
+        LocationServices.FusedLocationApi.removeLocationUpdates(
+                mGoogleApiClient, this);
+    }
+
+    private void resumeLocationUpdates() {
+        Log.i("RESUMING", "RESUMING LOCATION UPDATES");
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, this);
+    }
+
+    /* Application methods */
 
     private void getForecast() {
         String apiKey = "a45f738558f376111212234d47a716f6";
@@ -164,6 +263,33 @@ public class MainActivity extends Activity {
         /* Get and set the correct weather icon */
         Drawable drawable = getResources().getDrawable(weather.getIconId());
         iconView.setImageDrawable(drawable);
+        /* Get the users city name */
+        Geocoder gcd = new Geocoder(context, Locale.getDefault());
+        List<Address> addresses = null;
+        try {
+            addresses = gcd.getFromLocation(latitude, longitude, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (addresses.size() > 0)
+            if (addresses.get(0).getLocality() != null && addresses.get(0).getAdminArea() == null) {
+                //In case we cant find the users state/country, this happens a bit in places outside
+                //the US & Canada
+                //We will only display the city if we have it.
+                locationLabel.setText(addresses.get(0).getLocality());
+            } else if (addresses.get(0).getLocality() != null && addresses.get(0).getAdminArea() != null) {
+                //If we have both the city and state/country
+                //display both to the user
+                locationLabel.setText(addresses.get(0).getLocality() + ", " + addresses.get(0).getAdminArea());
+            } else if (addresses.get(0).getLocality() == null && addresses.get(0).getAdminArea() != null) {
+                //If we dont have the city but we have the country/state
+                locationLabel.setText(addresses.get(0).getAdminArea());
+            }
+            else {
+                //In case we cant find the users city and country?
+                //We leave the location label blank.
+                locationLabel.setText("");
+            }
     }
 
     private Weather getCurrentWeather(String data) throws JSONException {
