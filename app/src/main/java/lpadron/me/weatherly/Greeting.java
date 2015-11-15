@@ -7,15 +7,20 @@ import java.util.TimeZone;
 
 public class Greeting {
     private long time;
+    private int temp;
+    private int percip;
+    private String correctGreeting;
     private String timeZone;
     private ArrayList<String> greetings = new ArrayList();
 
-    public Greeting(long time, String timeZone){
+    public Greeting(long time, String timeZone, int temp, int percip){
         this.time = time;
         this.timeZone = timeZone;
-        this.greetings.add("Good morning " + "Luis,");
-        this.greetings.add("Good afternoon " + "Luis,");
-        this.greetings.add("Good evening " + "Luis,");
+        this.temp = temp;
+        this.percip = percip;
+        this.greetings.add("Good morning, ");
+        this.greetings.add("Good afternoon, ");
+        this.greetings.add("Good evening, ");
     }
 
     public ArrayList<String> getGreetings() {
@@ -43,11 +48,62 @@ public class Greeting {
         int hour = cal.get(Calendar.HOUR_OF_DAY);
 
         if (hour  >= 5 && hour < 11){
-            return greetings.get(0);
+            /* Determine temp for greeting */
+            if (temp < 30 ) {
+                correctGreeting = addToGreeting(0, 1);
+            } else if (temp >= 30 && temp <= 59) {
+               correctGreeting = addToGreeting(0, 2);
+            }  else if (temp >= 60 && temp <= 80 ) {
+                correctGreeting = addToGreeting(0, 3);
+            } else if (temp > 80) {
+                correctGreeting = addToGreeting(0, 4);
+            }
         }else if (hour > 11 && hour < 17) {
-            return greetings.get(1);
+            /* Determine temp for greeting */
+            if (temp < 30 ) {
+                correctGreeting = addToGreeting(1,1);
+            } else if (temp >= 30 && temp <= 59) {
+               correctGreeting =  addToGreeting(1,2);
+            }  else if (temp >= 60 && temp <= 80 ) {
+                correctGreeting = addToGreeting(1,3);
+            } else if (temp > 80) {
+                correctGreeting = addToGreeting(1,4);
+            }
         }else {
-            return greetings.get(2);
+               /* Determine temp for greeting */
+            if (temp < 30 ) {
+                correctGreeting = addToGreeting(2,1);
+            } else if (temp >= 30 && temp <= 59) {
+               correctGreeting = addToGreeting(2,2);
+            }  else if (temp >= 60 && temp <= 80 ) {
+               correctGreeting = addToGreeting(2,3);
+            } else if (temp > 80) {
+               correctGreeting = addToGreeting(2,4);
+            }
         }
+        /* Determine if it's going to rain/snow */
+        if (percip > 60) {
+            correctGreeting = correctGreeting.concat("\nIt's looking like it might rain.");
+        }
+        return correctGreeting;
+    }
+
+    private String addToGreeting(int element, int choice) {
+        String result = "";
+        switch (choice) {
+            case 1:
+                result =greetings.get(element).concat("wow it's really cold outside, wear grandma's sweater");
+                break;
+            case 2:
+                result = greetings.get(element).concat("it's going to be a bit chilly outside.");
+                break;
+            case 3:
+                result = greetings.get(element).concat("it's feeling rather nice out.");
+                break;
+            case 4:
+                result = greetings.get(element).concat("dang it's really hot outside, wear some shorts?");
+                break;
+        }
+        return result;
     }
 }

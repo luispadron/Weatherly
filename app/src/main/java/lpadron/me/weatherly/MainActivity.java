@@ -134,6 +134,7 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        stopLocationUpdates();
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
@@ -152,7 +153,6 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
 
     @Override
     public void onConnectionSuspended(int i) {
-
     }
 
     @Override
@@ -171,11 +171,6 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
         Log.i("STOPPING" , "STOPPING LOCATION UPDATES");
         LocationServices.FusedLocationApi.removeLocationUpdates(
                 mGoogleApiClient, this);
-    }
-
-    private void resumeLocationUpdates() {
-        Log.i("RESUMING", "RESUMING LOCATION UPDATES");
-        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, this);
     }
 
     /* Application methods */
@@ -255,7 +250,8 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
         tempLabel.setText(weather.getTemp() + "");
         timeLabel.setText(weather.getFormattedTime());
         /* Get/set the correct greeting based on time of day */
-        Greeting greeting = new Greeting(weather.getTime(), weather.getTimeZone());
+        Greeting greeting = new Greeting(weather.getTime(), weather.getTimeZone(),
+                weather.getTemp(), weather.getPercip());
         greetingLabel.setText(greeting.getCorrectGreeting());
         /* Set the current humidity and percipitation labels */
         humidityLabel.setText(weather.getHumidity() + "%");
