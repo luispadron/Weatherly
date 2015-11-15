@@ -63,11 +63,8 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
     private Location location;
     private LocationRequest locationRequest;
     private Context context = this;
-    private Activity activity = this;
     private double latitude;
     private double longitude;
-    private final int MY_PERMISSION_ACCESS_FINE_LOCATION = 1;
-    private final int MY_PERMISSION_ACCESS_COARSE_LOCATION = 2;
 
     /* Butter knife references */
     @Bind(R.id.tempLabel) TextView tempLabel;
@@ -109,7 +106,7 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
             }
         });
     }
-    
+
     @Override
     protected void onStart() {
         super.onStart();
