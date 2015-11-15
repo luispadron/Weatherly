@@ -3,6 +3,7 @@ package lpadron.me.weatherly;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 
@@ -18,6 +19,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -46,6 +49,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.jar.Manifest;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -59,8 +63,11 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
     private Location location;
     private LocationRequest locationRequest;
     private Context context = this;
+    private Activity activity = this;
     private double latitude;
     private double longitude;
+    private final int MY_PERMISSION_ACCESS_FINE_LOCATION = 1;
+    private final int MY_PERMISSION_ACCESS_COARSE_LOCATION = 2;
 
     /* Butter knife references */
     @Bind(R.id.tempLabel) TextView tempLabel;
@@ -102,7 +109,7 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
             }
         });
     }
-
+    
     @Override
     protected void onStart() {
         super.onStart();
