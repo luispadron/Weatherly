@@ -9,7 +9,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main" tools:context=".MainActivity"
-    android:background="#FFFFFFFF">
+    android:background="@color/material_blue_grey_800">
 
     <TextView
         android:layout_width="wrap_content"
@@ -19,7 +19,8 @@
         android:layout_centerHorizontal="true"
         android:textColor="#ffffff"
         android:textSize="100sp"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:text="--" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -52,7 +53,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Orlando, Florida"
+        android:text="Getting Location"
         android:id="@+id/locationLabel"
         android:layout_above="@+id/weatherIcon"
         android:layout_centerHorizontal="true"

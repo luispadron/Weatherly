@@ -92,16 +92,16 @@ public class Greeting {
         String result = "";
         switch (choice) {
             case 1:
-                result =greetings.get(element).concat("wow it's really cold outside, wear grandma's sweater");
+                result =greetings.get(element).concat("wow it's really cold outside.");
                 break;
             case 2:
-                result = greetings.get(element).concat("it's going to be a bit chilly outside.");
+                result = greetings.get(element).concat("it's a bit chilly outside.");
                 break;
             case 3:
                 result = greetings.get(element).concat("it's feeling rather nice out.");
                 break;
             case 4:
-                result = greetings.get(element).concat("dang it's really hot outside, wear some shorts?");
+                result = greetings.get(element).concat("dang it's really hot outside.");
                 break;
         }
         return result;

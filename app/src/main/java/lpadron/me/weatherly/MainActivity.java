@@ -108,19 +108,9 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        if (!mGoogleApiClient.isConnected()) {
-            mGoogleApiClient.connect();
-        }
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
-        if (!mGoogleApiClient.isConnected()) {
-            mGoogleApiClient.connect();
-        }
+        mGoogleApiClient.connect();
 
     }
 
@@ -128,15 +118,11 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
     protected void onPause() {
         super.onPause();
         stopLocationUpdates();
-        if (mGoogleApiClient.isConnected()) {
-            mGoogleApiClient.disconnect();
-        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stopLocationUpdates();
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
@@ -155,6 +141,7 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
 
     @Override
     public void onConnectionSuspended(int i) {
+        Log.i("SUSPENDING", "CONNECTION SUSPENDED");
     }
 
     @Override
@@ -166,6 +153,8 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
+        locationLabel.setText("Unable to get location.");
+        greetingLabel.setText("Network error");
         reportNetworkError();
     }
 
