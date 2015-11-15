@@ -86,7 +86,7 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
 
         /* Startup location services */
         locationRequest = LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setPriority(LocationRequest.PRIORITY_LOW_POWER)
                 .setSmallestDisplacement(2000) //minimum distance of 5,000 meters before checking
                 .setInterval(1 * 10000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
@@ -166,7 +166,7 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-
+        reportNetworkError();
     }
 
     protected void stopLocationUpdates() {
