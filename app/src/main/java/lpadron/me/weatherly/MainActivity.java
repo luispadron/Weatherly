@@ -59,8 +59,6 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
     private Location location;
     private LocationRequest locationRequest;
     private Context context = this;
-//    private double latitude = 28.537448;
-//    private double longitude = -81.379026;
     private double latitude;
     private double longitude;
 
