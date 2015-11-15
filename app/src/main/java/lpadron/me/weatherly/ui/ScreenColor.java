@@ -1,8 +1,10 @@
-package lpadron.me.weatherly;
+package lpadron.me.weatherly.ui;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+
+import lpadron.me.weatherly.R;
 
 public class ScreenColor {
     private long time;

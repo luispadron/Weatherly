@@ -1,4 +1,4 @@
-package lpadron.me.weatherly;
+package lpadron.me.weatherly.ui;
 
 
 import android.app.AlertDialog;
@@ -6,6 +6,8 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
+
+import lpadron.me.weatherly.R;
 
 public class ReportNetworkErrorFragment extends DialogFragment {
 

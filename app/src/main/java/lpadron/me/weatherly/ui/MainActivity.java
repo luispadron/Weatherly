@@ -1,4 +1,4 @@
-package lpadron.me.weatherly;
+package lpadron.me.weatherly.ui;
 
 import android.app.Activity;
 import android.content.Context;
@@ -38,6 +38,7 @@ import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import lpadron.me.weatherly.R;
 import lpadron.me.weatherly.weather.Currently;
 
 public class MainActivity extends Activity implements GoogleApiClient.OnConnectionFailedListener,

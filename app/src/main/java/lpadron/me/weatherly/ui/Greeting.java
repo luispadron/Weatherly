@@ -1,4 +1,4 @@
-package lpadron.me.weatherly;
+package lpadron.me.weatherly.ui;
 
 import java.util.ArrayList;
 import java.util.Calendar;
