@@ -1,10 +1,7 @@
 package lpadron.me.weatherly;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -16,23 +13,12 @@ import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
@@ -49,16 +35,16 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
-import java.util.jar.Manifest;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import lpadron.me.weatherly.weather.Currently;
 
 public class MainActivity extends Activity implements GoogleApiClient.OnConnectionFailedListener,
         GoogleApiClient.ConnectionCallbacks, LocationListener{
 
     public static final String TAG = MainActivity.class.getSimpleName();
-    private Weather weather = new Weather();
+    private Currently currently = new Currently();
     private GoogleApiClient mGoogleApiClient;
     private Location location;
     private LocationRequest locationRequest;
@@ -196,7 +182,7 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
                         Log.v(TAG, jsonData);
                         /* If we can connect and retrieve */
                         if (response.isSuccessful()) {
-                            weather = getCurrentWeather(jsonData);
+                            currently = getCurrentWeather(jsonData);
                             /* When user click the refresh button
                              * recheck the forcast.io data for new one
                              * Also runs on start up */
@@ -235,20 +221,20 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
     private void updateData() {
         /* Set the background color */
         RelativeLayout screen = (RelativeLayout) findViewById(R.id.screen);
-        ScreenColor screenColor = new ScreenColor(weather.getTime(), weather.getTimeZone());
+        ScreenColor screenColor = new ScreenColor(currently.getTime(), currently.getTimeZone());
         screen.setBackgroundColor(getResources().getColor(screenColor.getCorrectColor()));
         /* Set the temperature and time labels */
-        tempLabel.setText(weather.getTemp() + "");
-        timeLabel.setText(weather.getFormattedTime());
+        tempLabel.setText(currently.getTemp() + "");
+        timeLabel.setText(currently.getFormattedTime());
         /* Get/set the correct greeting based on time of day */
-        Greeting greeting = new Greeting(weather.getTime(), weather.getTimeZone(),
-                weather.getTemp(), weather.getPercip());
+        Greeting greeting = new Greeting(currently.getTime(), currently.getTimeZone(),
+                currently.getTemp(), currently.getPercip());
         greetingLabel.setText(greeting.getCorrectGreeting());
         /* Set the current humidity and percipitation labels */
-        humidityLabel.setText(weather.getHumidity() + "%");
-        percipLabel.setText(weather.getPercip() + "%");
+        humidityLabel.setText(currently.getHumidity() + "%");
+        percipLabel.setText(currently.getPercip() + "%");
         /* Get and set the correct weather icon */
-        Drawable drawable = getResources().getDrawable(weather.getIconId());
+        Drawable drawable = getResources().getDrawable(currently.getIconId());
         iconView.setImageDrawable(drawable);
         /* Get the users city name */
         Geocoder gcd = new Geocoder(context, Locale.getDefault());
@@ -279,24 +265,24 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
             }
     }
 
-    private Weather getCurrentWeather(String data) throws JSONException {
+    private Currently getCurrentWeather(String data) throws JSONException {
         JSONObject baseData = new JSONObject(data);
         String timeZone = baseData.getString("timezone");
 
         /* Get Current Weather data and create Weather object with data */
         JSONObject currentData = baseData.getJSONObject("currently");
 
-        Weather currentWeather = new Weather();
+        Currently currentCurrently = new Currently();
 
-        currentWeather.setHumidity(currentData.getDouble("humidity"));
-        currentWeather.setIcon(currentData.getString("icon"));
-        currentWeather.setPercip(currentData.getDouble("precipProbability"));
-        currentWeather.setSummary(currentData.getString("summary"));
-        currentWeather.setTime(currentData.getLong("time"));
-        currentWeather.setTemp(currentData.getDouble("temperature"));
-        currentWeather.setTimeZone(timeZone);
+        currentCurrently.setHumidity(currentData.getDouble("humidity"));
+        currentCurrently.setIcon(currentData.getString("icon"));
+        currentCurrently.setPercip(currentData.getDouble("precipProbability"));
+        currentCurrently.setSummary(currentData.getString("summary"));
+        currentCurrently.setTime(currentData.getLong("time"));
+        currentCurrently.setTemp(currentData.getDouble("temperature"));
+        currentCurrently.setTimeZone(timeZone);
 
-        return currentWeather;
+        return currentCurrently;
     }
 
     private boolean isNetwork() {

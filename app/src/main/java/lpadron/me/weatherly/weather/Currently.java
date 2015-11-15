@@ -1,10 +1,12 @@
-package lpadron.me.weatherly;
+package lpadron.me.weatherly.weather;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-public class Weather {
+import lpadron.me.weatherly.R;
+
+public class Currently {
     private long time;
     private Double temp;
     private Double humidity;
