@@ -20,7 +20,9 @@
         android:textColor="#ffffff"
         android:textSize="100sp"
         android:gravity="center_horizontal"
-        android:text="--" />
+        android:text="--"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentTop="false" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -36,39 +38,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/timeLabel"
-        android:layout_above="@+id/degreeIcon"
+        android:layout_above="@+id/weatherIcon"
         android:layout_centerHorizontal="true"
         android:textColor="#80ffffff"
         android:gravity="center_horizontal"
-        android:text="..." />
+        android:text="..."
+        android:layout_marginTop="25dp" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/weatherIcon"
-        android:layout_marginBottom="15dp"
         android:src="@drawable/partly_cloudy"
-        android:layout_above="@+id/timeLabel"
+        android:layout_above="@+id/tempLabel"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="30dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Getting Location"
         android:id="@+id/locationLabel"
-        android:layout_above="@+id/weatherIcon"
         android:layout_centerHorizontal="true"
         android:textColor="#ffffffff"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:gravity="center_horizontal" />
+        android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
+       android:layout_below="@id/tempLabel" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/refreshImageView"
-        android:layout_above="@+id/weatherIcon"
+        android:layout_above="@+id/timeLabel"
         android:layout_centerHorizontal="true"
         android:src="@drawable/refresh"
         android:layout_alignParentTop="true" />
@@ -87,8 +88,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/greetingLabel"
         android:textColor="#ffffffff"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/tempLabel"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/locationLabel"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
         android:text="Grabbing weather!" />
@@ -99,7 +100,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/greetingLabel"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="10dp"
+        android:id="@+id/humidtyPercipLayout">
 
         <LinearLayout
             android:orientation="vertical"
@@ -153,7 +155,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:id="@+id/hourlyDailyLayout">
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -163,7 +166,8 @@
             android:id="@+id/hourlyButton"
             android:layout_weight="1"
             android:textColor="@android:color/white"
-            android:background="#40ffffff" />
+            android:background="#40ffffff"
+            android:layout_marginRight="2dp" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -173,7 +177,8 @@
             android:layout_weight="1"
             android:text="Daily"
             android:textColor="@android:color/white"
-            android:background="#40ffffff"/>
+            android:background="#40ffffff"
+            android:layout_marginLeft="2dp" />
     </LinearLayout>
 
 </RelativeLayout>
