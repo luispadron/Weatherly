@@ -29,10 +29,12 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -40,12 +42,15 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import lpadron.me.weatherly.R;
 import lpadron.me.weatherly.weather.Currently;
+import lpadron.me.weatherly.weather.Daily;
+import lpadron.me.weatherly.weather.Forecast;
+import lpadron.me.weatherly.weather.Hourly;
 
 public class MainActivity extends Activity implements GoogleApiClient.OnConnectionFailedListener,
         GoogleApiClient.ConnectionCallbacks, LocationListener{
 
     public static final String TAG = MainActivity.class.getSimpleName();
-    private Currently currently = new Currently();
+    private Forecast forecast;
     private GoogleApiClient mGoogleApiClient;
     private Location location;
     private LocationRequest locationRequest;
@@ -105,12 +110,15 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
     protected void onPause() {
         super.onPause();
         stopLocationUpdates();
+        if (mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mGoogleApiClient.isConnected()) {
+        if(mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
     }
@@ -183,7 +191,7 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
                         Log.v(TAG, jsonData);
                         /* If we can connect and retrieve */
                         if (response.isSuccessful()) {
-                            currently = getCurrentWeather(jsonData);
+                            forecast = parseForecastInfo(jsonData);
                             /* When user click the refresh button
                              * recheck the forcast.io data for new one
                              * Also runs on start up */
@@ -220,6 +228,7 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
     }
 
     private void updateData() {
+        Currently currently = forecast.getCurrently();
         /* Set the background color */
         RelativeLayout screen = (RelativeLayout) findViewById(R.id.screen);
         ScreenColor screenColor = new ScreenColor(currently.getTime(), currently.getTimeZone());
@@ -266,24 +275,88 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
             }
     }
 
-    private Currently getCurrentWeather(String data) throws JSONException {
-        JSONObject baseData = new JSONObject(data);
+    private Forecast parseForecastInfo(String json) throws JSONException {
+        Forecast forecast = new Forecast();
+
+        forecast.setCurrently(getCurrentlyWeather(json));
+        forecast.setDailyWeatherList(getDailyWeather(json));
+        forecast.setHourlyWeatherList(getHourlyWeather(json));
+        return forecast;
+    }
+
+    private ArrayList<Hourly> getHourlyWeather(String json) throws JSONException {
+        ArrayList<Hourly> hourlyList = forecast.getHourlyWeatherList();
+        JSONObject baseData = new JSONObject(json);
+        //Get timezon from JSON
+        String timeZone = baseData.getString("timezone");
+        //Get the hourly JSON object
+        JSONObject hourly = baseData.getJSONObject("hourly");
+        //Get the data array from the JSON hourly object
+        JSONArray hourlyData = hourly.getJSONArray("data");
+
+        for (int i = 0; i < hourly.length(); i++) {
+           /* Get a single json object from the json array
+            * and get all the required information, save it into an
+             * hour object, then save that object into the list*/
+            JSONObject jsonObj = hourlyData.getJSONObject(i);
+            Hourly hour = new Hourly();
+
+            hour.setIcon(jsonObj.getString("icon"));
+            hour.setSummary(jsonObj.getString("summary"));
+            hour.setTime(jsonObj.getLong("time"));
+            hour.setTemp(jsonObj.getDouble("temperature"));
+            hour.setTimeZone(timeZone);
+
+            hourlyList.set(i, hour);
+        }
+        return hourlyList;
+    }
+
+    private ArrayList<Daily> getDailyWeather(String json) throws JSONException {
+        JSONObject baseData = new JSONObject(json);
+        ArrayList<Daily> dailyList = forecast.getDailyWeatherList();
+        String timeZone = baseData.getString("timezone");
+        //Get the hourly JSON object
+        JSONObject daily = baseData.getJSONObject("daily");
+        //Get the data array from the JSON hourly object
+        JSONArray dailyData = daily.getJSONArray("data");
+
+        for (int i = 0; i < daily.length(); i++) {
+           /* Get a single json object from the json array
+            * and get all the required information, save it into an
+             * hour object, then save that object into the list*/
+            JSONObject jsonObj = dailyData.getJSONObject(i);
+            Daily day = new Daily();
+
+            day.setIcon(jsonObj.getString("icon"));
+            day.setSummary(jsonObj.getString("summary"));
+            day.setTime(jsonObj.getLong("time"));
+            day.setTemp(jsonObj.getDouble("temperature"));
+            day.setTimeZone(timeZone);
+
+            dailyList.set(i, day);
+        }
+        return dailyList;
+    }
+
+    private Currently getCurrentlyWeather(String json) throws JSONException {
+        JSONObject baseData = new JSONObject(json);
         String timeZone = baseData.getString("timezone");
 
         /* Get Current Weather data and create Weather object with data */
         JSONObject currentData = baseData.getJSONObject("currently");
 
-        Currently currentCurrently = new Currently();
+        Currently currently = new Currently();
 
-        currentCurrently.setHumidity(currentData.getDouble("humidity"));
-        currentCurrently.setIcon(currentData.getString("icon"));
-        currentCurrently.setPercip(currentData.getDouble("precipProbability"));
-        currentCurrently.setSummary(currentData.getString("summary"));
-        currentCurrently.setTime(currentData.getLong("time"));
-        currentCurrently.setTemp(currentData.getDouble("temperature"));
-        currentCurrently.setTimeZone(timeZone);
+        currently.setHumidity(currentData.getDouble("humidity"));
+        currently.setIcon(currentData.getString("icon"));
+        currently.setPercip(currentData.getDouble("precipProbability"));
+        currently.setSummary(currentData.getString("summary"));
+        currently.setTime(currentData.getLong("time"));
+        currently.setTemp(currentData.getDouble("temperature"));
+        currently.setTimeZone(timeZone);
 
-        return currentCurrently;
+        return currently;
     }
 
     private boolean isNetwork() {
