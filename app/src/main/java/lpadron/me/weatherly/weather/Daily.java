@@ -6,7 +6,8 @@ package lpadron.me.weatherly.weather;
 public class Daily {
 
     private long time;
-    private Double temp;
+    private Double tempHigh;
+    private Double tempLow;
     private String icon;
     private String summary;
     private String timeZone;
@@ -19,12 +20,20 @@ public class Daily {
         this.time = time;
     }
 
-    public Double getTemp() {
-        return temp;
+    public Double getTempHigh() {
+        return tempHigh;
     }
 
-    public void setTemp(Double temp) {
-        this.temp = temp;
+    public void setTempHigh(Double temp) {
+        this.tempHigh = temp;
+    }
+
+    public Double getTempLow() {
+        return tempLow;
+    }
+
+    public void setTempLow(Double tempLow) {
+        this.tempLow = tempLow;
     }
 
     public String getIcon() {
