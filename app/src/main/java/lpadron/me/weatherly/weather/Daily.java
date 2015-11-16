@@ -7,11 +7,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
+import lpadron.me.weatherly.ui.ScreenColor;
+
 /**
  * Created by luispadron on 11/15/15.
  */
 public class Daily implements Parcelable{
 
+    private int backgroundColor;
     private long time;
     private Double tempHigh;
     private Double tempLow;
