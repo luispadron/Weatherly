@@ -14,7 +14,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tempLabel"
+        android:id="@+id/dailyTempLabel"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:textColor="#ffffff"
@@ -29,9 +29,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/degreeIcon"
         android:src="@drawable/degree"
-        android:layout_alignTop="@+id/tempLabel"
-        android:layout_toRightOf="@+id/tempLabel"
-        android:layout_toEndOf="@+id/tempLabel"
+        android:layout_alignTop="@+id/dailyTempLabel"
+        android:layout_toRightOf="@+id/dailyTempLabel"
+        android:layout_toEndOf="@+id/dailyTempLabel"
         android:layout_marginTop="20dp" />
 
     <TextView
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/weatherIcon"
         android:src="@drawable/partly_cloudy"
-        android:layout_above="@+id/tempLabel"
+        android:layout_above="@+id/dailyTempLabel"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp" />
 
@@ -63,7 +63,7 @@
         android:textColor="#ffffffff"
         android:layout_marginTop="5dp"
         android:gravity="center_horizontal"
-       android:layout_below="@id/tempLabel" />
+       android:layout_below="@id/dailyTempLabel" />
 
     <ImageView
         android:layout_width="wrap_content"

@@ -2,6 +2,7 @@ package lpadron.me.weatherly.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -15,6 +16,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -34,12 +36,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import lpadron.me.weatherly.R;
 import lpadron.me.weatherly.weather.Currently;
 import lpadron.me.weatherly.weather.Daily;
@@ -50,6 +52,7 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
         GoogleApiClient.ConnectionCallbacks, LocationListener{
 
     public static final String TAG = MainActivity.class.getSimpleName();
+    public static final String DAILY_FORECAST = "DAILY_FORECAST";
     private Forecast forecast;
     private GoogleApiClient mGoogleApiClient;
     private Location location;
@@ -59,7 +62,7 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
     private double longitude;
 
     /* Butter knife references */
-    @Bind(R.id.tempLabel) TextView tempLabel;
+    @Bind(R.id.dailyTempLabel) TextView tempLabel;
     @Bind(R.id.timeLabel) TextView timeLabel;
     @Bind(R.id.weatherIcon) ImageView iconView;
     @Bind(R.id.locationLabel) TextView locationLabel;
@@ -68,6 +71,7 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
     @Bind(R.id.percipValue) TextView percipLabel;
     @Bind(R.id.refreshImageView) ImageView refreshImageView;
     @Bind(R.id.progressBar) ProgressBar progressBar;
+
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,13 +94,6 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
                 .build();
 
         progressBar.setVisibility(View.INVISIBLE);
-
-        refreshImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getForecast();
-            }
-        });
     }
 
     @Override
@@ -124,7 +121,6 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
     }
 
     /* Location related methods */
-
     @Override
     public void onConnected(Bundle bundle) {
         location = LocationServices.FusedLocationApi.getLastLocation(
@@ -230,23 +226,24 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
         Forecast forecast = new Forecast();
 
         forecast.setCurrently(getCurrentlyWeather(json));
-        forecast.setDailyWeatherList(getDailyWeather(json));
-        forecast.setHourlyWeatherList(getHourlyWeather(json));
+        forecast.setDailyWeather(getDailyWeather(json));
+       // forecast.setHourlyWeather(getHourlyWeather(json));
 
         return forecast;
     }
 
 
-    private ArrayList<Daily> getDailyWeather(String json) throws JSONException {
+    private Daily[] getDailyWeather(String json) throws JSONException {
         JSONObject baseData = new JSONObject(json);
-        ArrayList<Daily> dailyList = new ArrayList<>();
         String timeZone = baseData.getString("timezone");
         //Get the hourly JSON object
         JSONObject daily = baseData.getJSONObject("daily");
         //Get the data array from the JSON hourly object
         JSONArray dailyData = daily.getJSONArray("data");
 
-        for (int i = 0; i < daily.length(); i++) {
+        Daily[] dailyWeather = new Daily[dailyData.length()];
+
+        for (int i = 0; i < dailyData.length(); i++) {
            /* Get a single json object from the json array
             * and get all the required information, save it into an
              * hour object, then save that object into the list*/
@@ -260,13 +257,12 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
             day.setTempLow(jsonObj.getDouble("temperatureMin"));
             day.setTimeZone(timeZone);
 
-            dailyList.add(day);
+            dailyWeather[i] = day;
         }
-        return dailyList;
+        return dailyWeather;
     }
 
-    private ArrayList<Hourly> getHourlyWeather(String json) throws JSONException {
-        ArrayList<Hourly> hourlyList = new ArrayList<>();
+    private Hourly[] getHourlyWeather(String json) throws JSONException {
         JSONObject baseData = new JSONObject(json);
         //Get timezon from JSON
         String timeZone = baseData.getString("timezone");
@@ -275,7 +271,9 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
         //Get the data array from the JSON hourly object
         JSONArray hourlyData = hourly.getJSONArray("data");
 
-        for (int i = 0; i < hourly.length(); i++) {
+        Hourly[] hourlyWeather = new Hourly[hourlyData.length()];
+
+        for (int i = 0; i < hourlyData.length(); i++) {
            /* Get a single json object from the json array
             * and get all the required information, save it into an
              * hour object, then save that object into the list*/
@@ -288,9 +286,9 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
             hour.setTemp(jsonObj.getDouble("temperature"));
             hour.setTimeZone(timeZone);
 
-            hourlyList.add(hour);
+            hourlyWeather[i] = hour;
         }
-        return hourlyList;
+        return hourlyWeather;
     }
 
     private Currently getCurrentlyWeather(String json) throws JSONException {
@@ -382,5 +380,17 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
     private void reportNetworkError(){
         ReportNetworkErrorFragment error = new ReportNetworkErrorFragment();
         error.show(getFragmentManager(), "network error");
+    }
+
+    @OnClick (R.id.refreshImageView)
+    public void refreshTheData(View v) {
+        getForecast();
+    }
+
+    @OnClick (R.id.dailyButton)
+    public void startDailyActivity(View view) {
+        Intent intent = new Intent(this, DailyForecastActivity.class);
+        intent.putExtra(DAILY_FORECAST, forecast.getDailyWeather());
+        startActivity(intent);
     }
 }

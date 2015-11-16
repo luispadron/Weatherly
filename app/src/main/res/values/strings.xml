@@ -7,4 +7,6 @@
     <string name="network_error_message">No internet connection detected, please try again later.</string>
     <string name="unknown_error_message">Oops, don\'t know what went wrong, try again later.\nSorry!</string>
     <string name="unknown_error_title">Unknown Error</string>
+    <string name="title_activity_daily_forecast">DailyForecastActivity</string>
+    <string name="no_daily_forecast_data">No data to display, sorry.</string>
 </resources>
