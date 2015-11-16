@@ -39,7 +39,8 @@
         android:layout_above="@+id/degreeIcon"
         android:layout_centerHorizontal="true"
         android:textColor="#80ffffff"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:text="..." />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -67,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/refreshImageView"
-        android:layout_above="@id/locationLabel"
+        android:layout_above="@+id/weatherIcon"
         android:layout_centerHorizontal="true"
         android:src="@drawable/refresh"
         android:layout_alignParentTop="true" />
@@ -97,8 +98,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/greetingLabel"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="20dp">
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp">
 
         <LinearLayout
             android:orientation="vertical"
