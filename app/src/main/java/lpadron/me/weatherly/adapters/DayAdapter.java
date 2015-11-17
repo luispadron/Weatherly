@@ -61,7 +61,11 @@ public class DayAdapter extends BaseAdapter {
 
         holder.iconImageView.setImageResource(day.getIconId());
         holder.tempLabel.setText(day.getTempHigh() + "");
-        holder.dayLabel.setText(day.getDayOfTheWeek());
+        if (position == 0) {
+            holder.dayLabel.setText("Today");
+        } else {
+            holder.dayLabel.setText(day.getDayOfTheWeek());
+        }
         return convertView;
     }
 
