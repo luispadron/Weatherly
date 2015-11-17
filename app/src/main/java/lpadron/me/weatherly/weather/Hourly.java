@@ -10,7 +10,7 @@ import java.util.TimeZone;
 public class Hourly implements Parcelable {
 
     private long time;
-    //private int color;
+    private int color;
     private Double latitude;
     private Double longitude;
     private Double temp;
@@ -30,7 +30,7 @@ public class Hourly implements Parcelable {
         timeZone = in.readString();
         latitude = in.readDouble();
         longitude = in.readDouble();
-       // color = in.readInt();
+        color = in.readInt();
     }
 
     public long getTime() {
@@ -92,14 +92,14 @@ public class Hourly implements Parcelable {
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
-//
-//    public int getColor() {
-//        return color;
-//    }
-//
-//    public void setColor(int color) {
-//        this.color = color;
-//    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
 
     public String getHour() {
         SimpleDateFormat formatter = new SimpleDateFormat("h a");
@@ -122,7 +122,7 @@ public class Hourly implements Parcelable {
         dest.writeString(timeZone);
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
-        //dest.writeInt(color);
+        dest.writeInt(color);
     }
 
     public static final Creator<Hourly> CREATOR = new Creator<Hourly>() {

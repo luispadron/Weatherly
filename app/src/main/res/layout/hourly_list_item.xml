@@ -53,7 +53,7 @@
         android:layout_marginStart="21dp"
         android:textColor="#ffffffff"
         android:layout_toLeftOf="@+id/hourlyTempLabel"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         tools:text="Partly Cloudy"/>
 </RelativeLayout>

@@ -287,9 +287,9 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
             hour.setLatitude(latitude);
             hour.setLongitude(longitude);
 
-//            /* Get correct screen color */
-//            ScreenColor screenColor = new ScreenColor(hour.getTime(), hour.getTimeZone());
-//            hour.setColor(screenColor.getCorrectColor());
+            /* Get correct screen color */
+            ScreenColor screenColor = new ScreenColor(hour.getTime(), hour.getTimeZone());
+            hour.setColor(screenColor.getCorrectColor());
 
             hourlyWeather[i] = hour;
         }

@@ -41,7 +41,6 @@ public class HourlyForecastActivity extends AppCompatActivity {
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
         recyclerView.setHasFixedSize(true);
     }
 
