@@ -7,7 +7,8 @@
     android:paddingRight="32dp"
     android:paddingTop="4dp"
     android:paddingBottom="4dp"
-    android:background="#ffaa00">
+    tools:background="#01579B"
+    >
 
     <ImageView
         android:layout_width="wrap_content"
@@ -52,5 +53,6 @@
         android:layout_toLeftOf="@+id/dayLabel"
         android:gravity="center"
         android:layout_toStartOf="@+id/dayLabel"
+        android:layout_centerInParent="true"
         tools:text="100"/>
 </RelativeLayout>
