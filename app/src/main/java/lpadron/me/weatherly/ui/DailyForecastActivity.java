@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.Arrays;
 
 import lpadron.me.weatherly.R;
 import lpadron.me.weatherly.adapters.DayAdapter;
 import lpadron.me.weatherly.weather.Daily;
+import lpadron.me.weatherly.weather.UsersLocation;
 
 public class DailyForecastActivity extends ListActivity {
 
@@ -24,6 +26,13 @@ public class DailyForecastActivity extends ListActivity {
         Intent intent = getIntent();
         Parcelable[] parcelables = intent.getParcelableArrayExtra(MainActivity.DAILY_FORECAST);
         dailyWeather = Arrays.copyOf(parcelables, parcelables.length, Daily[].class);
+        /* Set the city/state at bottom of screen */
+        TextView dailyLocationLabel = (TextView) findViewById(R.id.dailyLocationLabel);
+        dailyLocationLabel.setText(
+                UsersLocation.getUsersLocation(
+                        dailyWeather[0].getLatitude(),
+                        dailyWeather[0].getLongitude(),
+                        this));
 
         DayAdapter adapter = new DayAdapter(this, dailyWeather);
         setListAdapter(adapter);

@@ -58,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Getting Location"
-        android:id="@+id/locationLabel"
+        android:id="@+id/dailyLocationLabel"
         android:layout_centerHorizontal="true"
         android:textColor="#ffffffff"
         android:layout_marginTop="5dp"
@@ -89,7 +89,7 @@
         android:id="@+id/greetingLabel"
         android:textColor="#ffffffff"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/locationLabel"
+        android:layout_below="@+id/dailyLocationLabel"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
         android:text="Grabbing weather!" />

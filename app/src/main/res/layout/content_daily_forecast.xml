@@ -19,7 +19,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="false"
         android:layout_below="@+id/weekLabel"
-        android:layout_above="@+id/locationLabel"
+        android:layout_above="@+id/dailyLocationLabel"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp" />
 
@@ -46,8 +46,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Orlando, Florida"
-        android:id="@+id/locationLabel"
+        android:text="..."
+        android:id="@+id/dailyLocationLabel"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:textSize="18sp"

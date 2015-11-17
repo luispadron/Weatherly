@@ -8,8 +8,6 @@ import android.graphics.drawable.Drawable;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.location.LocationListener;
 
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -36,8 +34,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -47,6 +43,7 @@ import lpadron.me.weatherly.weather.Currently;
 import lpadron.me.weatherly.weather.Daily;
 import lpadron.me.weatherly.weather.Forecast;
 import lpadron.me.weatherly.weather.Hourly;
+import lpadron.me.weatherly.weather.UsersLocation;
 
 public class MainActivity extends Activity implements GoogleApiClient.OnConnectionFailedListener,
         GoogleApiClient.ConnectionCallbacks, LocationListener{
@@ -65,7 +62,7 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
     @Bind(R.id.dailyTempLabel) TextView tempLabel;
     @Bind(R.id.timeLabel) TextView timeLabel;
     @Bind(R.id.weatherIcon) ImageView iconView;
-    @Bind(R.id.locationLabel) TextView locationLabel;
+    @Bind(R.id.dailyLocationLabel) TextView locationLabel;
     @Bind(R.id.greetingLabel) TextView greetingLabel;
     @Bind(R.id.humidityValue) TextView humidityLabel;
     @Bind(R.id.percipValue) TextView percipLabel;
@@ -256,6 +253,8 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
             day.setTempHigh(jsonObj.getDouble("temperatureMax"));
             day.setTempLow(jsonObj.getDouble("temperatureMin"));
             day.setTimeZone(timeZone);
+            day.setLatitude(latitude);
+            day.setLongitude(longitude);
 
             dailyWeather[i] = day;
         }
@@ -331,32 +330,7 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
         Drawable drawable = getResources().getDrawable(currently.getIconId());
         iconView.setImageDrawable(drawable);
         /* Get the users city name */
-        Geocoder gcd = new Geocoder(context, Locale.getDefault());
-        List<Address> addresses = null;
-        try {
-            addresses = gcd.getFromLocation(latitude, longitude, 1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (addresses.size() > 0)
-            if (addresses.get(0).getLocality() != null && addresses.get(0).getAdminArea() == null) {
-                //In case we cant find the users state/country, this happens a bit in places outside
-                //the US & Canada
-                //We will only display the city if we have it.
-                locationLabel.setText(addresses.get(0).getLocality());
-            } else if (addresses.get(0).getLocality() != null && addresses.get(0).getAdminArea() != null) {
-                //If we have both the city and state/country
-                //display both to the user
-                locationLabel.setText(addresses.get(0).getLocality() + ", " + addresses.get(0).getAdminArea());
-            } else if (addresses.get(0).getLocality() == null && addresses.get(0).getAdminArea() != null) {
-                //If we dont have the city but we have the country/state
-                locationLabel.setText(addresses.get(0).getAdminArea());
-            }
-            else {
-                //In case we cant find the users city and country?
-                //We leave the location label blank.
-                locationLabel.setText("");
-            }
+        locationLabel.setText(UsersLocation.getUsersLocation(latitude, longitude, this)) ;
     }
 
 

@@ -12,6 +12,8 @@ import lpadron.me.weatherly.ui.ScreenColor;
 public class Daily implements Parcelable{
 
     private long time;
+    private Double latitude;
+    private Double longitude;
     private Double tempHigh;
     private Double tempLow;
     private String icon;
@@ -29,6 +31,8 @@ public class Daily implements Parcelable{
         tempLow = in.readDouble();
         icon = in.readString();
         timeZone = in.readString();
+        latitude = in.readDouble();
+        longitude = in.readDouble();
     }
 
     public long getTime() {
@@ -79,6 +83,22 @@ public class Daily implements Parcelable{
         this.timeZone = timeZone;
     }
 
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
     public int getIconId() {
         return Forecast.getIconId(icon);
     }
@@ -104,6 +124,8 @@ public class Daily implements Parcelable{
         dest.writeDouble(tempLow);
         dest.writeString(icon);
         dest.writeString(timeZone);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
     }
 
     public static final Creator<Daily> CREATOR = new Creator<Daily>() {

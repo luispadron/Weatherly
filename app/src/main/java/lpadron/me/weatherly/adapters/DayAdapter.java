@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import lpadron.me.weatherly.R;
 import lpadron.me.weatherly.weather.Daily;
+import lpadron.me.weatherly.weather.UsersLocation;
 
 
 public class DayAdapter extends BaseAdapter {
@@ -61,7 +62,6 @@ public class DayAdapter extends BaseAdapter {
         holder.iconImageView.setImageResource(day.getIconId());
         holder.tempLabel.setText(day.getTempHigh() + "");
         holder.dayLabel.setText(day.getDayOfTheWeek());
-
         return convertView;
     }
 
