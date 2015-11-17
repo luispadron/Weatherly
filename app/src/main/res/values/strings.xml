@@ -9,4 +9,5 @@
     <string name="unknown_error_title">Unknown Error</string>
     <string name="title_activity_daily_forecast">DailyForecastActivity</string>
     <string name="no_daily_forecast_data">No data to display, sorry.</string>
+    <string name="title_activity_hourly_forecast">HourlyForecastActivity</string>
 </resources>

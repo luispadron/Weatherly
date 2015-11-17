@@ -50,6 +50,7 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
 
     public static final String TAG = MainActivity.class.getSimpleName();
     public static final String DAILY_FORECAST = "DAILY_FORECAST";
+    public static final String HOURLY_FORECAST = "HOURLY_FORECAST";
     private Forecast forecast;
     private GoogleApiClient mGoogleApiClient;
     private Location location;
@@ -68,7 +69,6 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
     @Bind(R.id.percipValue) TextView percipLabel;
     @Bind(R.id.refreshImageView) ImageView refreshImageView;
     @Bind(R.id.progressBar) ProgressBar progressBar;
-
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -224,7 +224,7 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
 
         forecast.setCurrently(getCurrentlyWeather(json));
         forecast.setDailyWeather(getDailyWeather(json));
-       // forecast.setHourlyWeather(getHourlyWeather(json));
+        forecast.setHourlyWeather(getHourlyWeather(json));
 
         return forecast;
     }
@@ -284,6 +284,12 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
             hour.setTime(jsonObj.getLong("time"));
             hour.setTemp(jsonObj.getDouble("temperature"));
             hour.setTimeZone(timeZone);
+            hour.setLatitude(latitude);
+            hour.setLongitude(longitude);
+
+//            /* Get correct screen color */
+//            ScreenColor screenColor = new ScreenColor(hour.getTime(), hour.getTimeZone());
+//            hour.setColor(screenColor.getCorrectColor());
 
             hourlyWeather[i] = hour;
         }
@@ -365,6 +371,13 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
     public void startDailyActivity(View view) {
         Intent intent = new Intent(this, DailyForecastActivity.class);
         intent.putExtra(DAILY_FORECAST, forecast.getDailyWeather());
+        startActivity(intent);
+    }
+
+    @OnClick (R.id.hourlyButton)
+    public void startHourlyActivity(View view) {
+        Intent intent = new Intent(this, HourlyForecastActivity.class);
+        intent.putExtra(HOURLY_FORECAST, forecast.getHourlyWeather());
         startActivity(intent);
     }
 }

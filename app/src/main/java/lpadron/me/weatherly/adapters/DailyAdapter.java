@@ -13,12 +13,12 @@ import lpadron.me.weatherly.weather.Daily;
 import lpadron.me.weatherly.weather.UsersLocation;
 
 
-public class DayAdapter extends BaseAdapter {
+public class DailyAdapter extends BaseAdapter {
 
     private Context context;
     private Daily[] dailyList;
 
-    public DayAdapter(Context context, Daily[] dailyList) {
+    public DailyAdapter(Context context, Daily[] dailyList) {
         this.context = context;
         this.dailyList = dailyList;
     }
