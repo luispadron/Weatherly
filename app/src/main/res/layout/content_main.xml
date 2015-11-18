@@ -9,7 +9,7 @@
     android:paddingBottom="10dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main" tools:context=".MainActivity"
-    android:background="@color/material_blue_grey_800">
+    android:background="@drawable/bg_list_gradient">
 
     <TextView
         android:layout_width="wrap_content"
