@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
-        android:id="@+id/dailyTempLabel"
+        android:id="@+id/currentlyTempLabel"
         android:layout_alignRight="@id/circleImageView"
         android:layout_alignLeft="@id/circleImageView"
         android:layout_alignTop="@id/circleImageView"

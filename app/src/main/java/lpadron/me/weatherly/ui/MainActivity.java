@@ -60,7 +60,7 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
     private double longitude;
 
     /* Butter knife references */
-    @Bind(R.id.dailyTempLabel) TextView tempLabel;
+    @Bind(R.id.currentlyTempLabel) TextView tempLabel;
     @Bind(R.id.timeLabel) TextView timeLabel;
     @Bind(R.id.weatherIcon) ImageView iconView;
     @Bind(R.id.dailyLocationLabel) TextView locationLabel;

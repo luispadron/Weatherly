@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import lpadron.me.weatherly.R;
 import lpadron.me.weatherly.weather.Daily;
-import lpadron.me.weatherly.weather.UsersLocation;
 
 
 public class DailyAdapter extends BaseAdapter {
@@ -47,7 +46,7 @@ public class DailyAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.daily_list_item, null);
             holder = new ViewHolder();
             holder.iconImageView = (ImageView) convertView.findViewById(R.id.dailyIconImageView);
-            holder.tempLabel = (TextView) convertView.findViewById(R.id.dailyTempLabel);
+            holder.tempLabel = (TextView) convertView.findViewById(R.id.currentlyTempLabel);
             holder.dayLabel = (TextView) convertView.findViewById(R.id.dayLabel);
 
             convertView.setTag(holder);

@@ -53,9 +53,9 @@ public class Greeting {
                 correctGreeting = addToGreeting(0, 1);
             } else if (temp >= 30 && temp <= 59) {
                correctGreeting = addToGreeting(0, 2);
-            }  else if (temp >= 60 && temp <= 80 ) {
+            }  else if (temp >= 60 && temp <= 85 ) {
                 correctGreeting = addToGreeting(0, 3);
-            } else if (temp > 80) {
+            } else if (temp >= 86) {
                 correctGreeting = addToGreeting(0, 4);
             }
         }else if (hour > 11 && hour < 17) {
@@ -64,9 +64,9 @@ public class Greeting {
                 correctGreeting = addToGreeting(1,1);
             } else if (temp >= 30 && temp <= 59) {
                correctGreeting =  addToGreeting(1,2);
-            }  else if (temp >= 60 && temp <= 80 ) {
+            }  else if (temp >= 60 && temp <= 85 ) {
                 correctGreeting = addToGreeting(1,3);
-            } else if (temp > 80) {
+            } else if (temp >= 86) {
                 correctGreeting = addToGreeting(1,4);
             }
         }else {
