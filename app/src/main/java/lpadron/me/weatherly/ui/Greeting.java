@@ -75,9 +75,9 @@ public class Greeting {
                 correctGreeting = addToGreeting(2,1);
             } else if (temp >= 30 && temp <= 59) {
                correctGreeting = addToGreeting(2,2);
-            }  else if (temp >= 60 && temp <= 80 ) {
+            }  else if (temp >= 60 && temp <= 85 ) {
                correctGreeting = addToGreeting(2,3);
-            } else if (temp > 80) {
+            } else if (temp >= 86) {
                correctGreeting = addToGreeting(2,4);
             }
         }
@@ -92,7 +92,7 @@ public class Greeting {
         String result = "";
         switch (choice) {
             case 1:
-                result =greetings.get(element).concat("wow it's really cold outside.");
+                result =greetings.get(element).concat("it's really cold outside.");
                 break;
             case 2:
                 result = greetings.get(element).concat("it's a bit chilly outside.");
@@ -101,7 +101,7 @@ public class Greeting {
                 result = greetings.get(element).concat("it's feeling rather nice out.");
                 break;
             case 4:
-                result = greetings.get(element).concat("dang it's really hot outside.");
+                result = greetings.get(element).concat("it's really hot outside.");
                 break;
         }
         return result;

@@ -21,6 +21,7 @@
         android:textSize="100sp"
         android:gravity="center_horizontal"
         android:text="--"
+        tools:text="83"
         android:layout_marginTop="20dp"
         android:layout_alignParentTop="false" />
 
@@ -43,6 +44,7 @@
         android:textColor="#80ffffff"
         android:gravity="center_horizontal"
         android:text="..."
+        tools:text="3:30 PM"
         android:layout_marginTop="25dp" />
 
     <ImageView
@@ -58,6 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Getting Location"
+        tools:text="Orlando, Florida"
         android:id="@+id/dailyLocationLabel"
         android:layout_centerHorizontal="true"
         android:textColor="#ffffffff"
@@ -88,11 +91,12 @@
         android:layout_height="wrap_content"
         android:id="@+id/greetingLabel"
         android:textColor="#ffffffff"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="3dp"
         android:layout_below="@+id/dailyLocationLabel"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
-        android:text="Grabbing weather!" />
+        android:text="Grabbing weather!"
+        tools:text="Good afternoon, its rather hot outside.\nIt might rain"/>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -123,7 +127,8 @@
                 android:id="@+id/humidityValue"
                 android:textColor="#ffffffff"
                 android:textSize="24sp"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                tools:text="73%"/>
         </LinearLayout>
 
         <LinearLayout
@@ -146,7 +151,8 @@
                 android:id="@+id/percipValue"
                 android:textColor="#ffffffff"
                 android:textSize="24sp"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                />
         </LinearLayout>
     </LinearLayout>
 
