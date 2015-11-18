@@ -36,7 +36,7 @@ public class HourlyForecastActivity extends AppCompatActivity {
         Parcelable[] parcelables = intent.getParcelableArrayExtra(MainActivity.HOURLY_FORECAST);
         hours = Arrays.copyOf(parcelables, parcelables.length, Hourly[].class);
 
-        HourlyAdapter adapter = new HourlyAdapter(hours);
+        HourlyAdapter adapter = new HourlyAdapter(this, hours);
         recyclerView.setAdapter(adapter);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
