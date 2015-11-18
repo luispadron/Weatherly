@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class HourlyAdapter extends RecyclerView.Adapter<HourlyAdapter.HourlyView
         public TextView summaryLabel;
         public TextView tempLabel;
         public ImageView iconImageView;
+        public RelativeLayout relativeLayout;
 
         public HourlyViewHolder(View itemView) {
             super(itemView);
@@ -37,6 +39,8 @@ public class HourlyAdapter extends RecyclerView.Adapter<HourlyAdapter.HourlyView
             summaryLabel = (TextView) itemView.findViewById(R.id.hourlySummaryLabel);
             tempLabel = (TextView) itemView.findViewById(R.id.hourlyTempLabel);
             iconImageView = (ImageView) itemView.findViewById(R.id.hourlyIconImageView);
+            relativeLayout = (RelativeLayout) itemView.findViewById(R.id.hourlyListItemScreen);
+
             itemView.setOnClickListener(this);
         }
 
@@ -45,6 +49,7 @@ public class HourlyAdapter extends RecyclerView.Adapter<HourlyAdapter.HourlyView
             summaryLabel.setText(hour.getSummary());
             tempLabel.setText(hour.getTemp() + "");
             iconImageView.setImageResource(hour.getIconId());
+            relativeLayout.setBackgroundColor(context.getResources().getColor(hour.getColor()));
         }
 
         @Override

@@ -6,7 +6,8 @@
     android:background="@drawable/bg_list_gradient"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_hourly_forecast"
-    tools:context="lpadron.me.weatherly.ui.HourlyForecastActivity">
+    tools:context="lpadron.me.weatherly.ui.HourlyForecastActivity"
+    android:id="@+id/hourlyListScreen">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
