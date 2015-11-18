@@ -270,9 +270,9 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
         //Get the data array from the JSON hourly object
         JSONArray hourlyData = hourly.getJSONArray("data");
 
-        Hourly[] hourlyWeather = new Hourly[hourlyData.length()];
+        Hourly[] hourlyWeather = new Hourly[25];
 
-        for (int i = 0; i < hourlyData.length(); i++) {
+        for (int i = 0; i < 25; i++) {
            /* Get a single json object from the json array
             * and get all the required information, save it into an
              * hour object, then save that object into the list*/

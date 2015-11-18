@@ -5,8 +5,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/hourlyListItemScreen"
     android:paddingTop="10dp"
-    android:paddingBottom="10dp"
-    android:background="#1a237e">
+    android:paddingBottom="10dp">
 
     <TextView
         android:layout_width="80dp"

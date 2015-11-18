@@ -9,7 +9,7 @@
     tools:showIn="@layout/activity_daily_forecast"
     tools:context="lpadron.me.weatherly.ui.DailyForecastActivity"
     android:id="@+id/dailyListScreen"
-    android:background="@drawable/bg_daily_list_gradient">
+    android:background="@drawable/bg_list_gradient">
 
     <ListView
         android:layout_width="match_parent"
