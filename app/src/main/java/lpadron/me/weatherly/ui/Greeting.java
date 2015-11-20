@@ -83,7 +83,7 @@ public class Greeting {
         }
         /* Determine if it's going to rain/snow */
         if (percip > 60) {
-            correctGreeting = correctGreeting.concat("\nIt's looking like it might rain.");
+            correctGreeting = correctGreeting.concat("\nIt's also looking like it might rain.");
         }
         return correctGreeting;
     }
