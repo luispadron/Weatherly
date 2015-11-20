@@ -42,29 +42,62 @@ public class ScreenColor {
         int color = R.color.defaultColor;
         int hour = cal.get(Calendar.HOUR_OF_DAY);
 
-          /* Hour is in military time */
-        if (hour == 0){
-            color = R.color.earlyEvening;
-        } else if (hour >= 1 && hour < 5){
-            //late evening is 1 am - 4 am
-            color = R.color.lateEvening;
-        } else if (hour >= 5 && hour < 9) {
-            //early morning from 5 am - 8 am
-            color = R.color.earlyMorning;
-        }else if (hour >= 9 && hour < 12) {
-            //late morning from 9 am - 11 am
-            color = R.color.lateMorning;
-        }else if (hour >= 12 && hour < 15) {
-            //early afternoon from 12 pm - 2 pm
-            color = R.color.earlyAfternoon;
-        }else if (hour >= 15 && hour < 18) {
-            //late afternoon from 3 pm - 5 pm
-            color = R.color.lateAfternoon;
-        }else {
-            //early evening from 6 pm - 11 pm
-            color = R.color.earlyEvening;
-        }
+          /* Hour is in military time
+          sets the color variable depending on time of day starts at 5 am -->  */
+        switch (hour) {
+            case 0:
+            case 1:
+                color = R.color.evening4;
+                break;
+            case 2:
+            case 3:
+                color = R.color.evening3;
+                break;
+            case 4:
+                color = R.color.evening1;
+                break;
+            case 5:
+            case 6:
+                color = R.color.morning1;
+                break;
+            case 7:
+            case 8:
+                color = R.color.morning2;
+                break;
+            case 9:
+            case 10:
+                color = R.color.morning3;
+                break;
+            case 11:
+                color = R.color.morning4;
+                break;
+            case 12:
+            case 13:
+                color = R.color.afternoon1;
+                break;
+            case 14:
+                color = R.color.afternoon2;
+                break;
+            case 15:
+                color = R.color.afternoon3;
+                break;
+            case 16:
+            case 17:
+                color = R.color.afternoon4;
+                break;
+            case 18:
+            case 19:
+                color = R.color.evening1;
+                break;
+            case 20:
+            case 21:
+                color = R.color.evening2;
+                break;
+            case 22:
+            case 23:
+                color = R.color.evening3;
 
+        }
         return color;
     }
 }

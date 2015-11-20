@@ -2,10 +2,17 @@
 <resources>
     <!-- Colors for the background of the screen  -->
     <color name="defaultColor">#3F51B5</color>
-    <color name="earlyMorning">#81D4FA</color>
-    <color name="lateMorning">#29B6F6</color>
-    <color name="earlyAfternoon">#039BE5</color>
-    <color name="lateAfternoon">#03A9F4</color>
-    <color name="earlyEvening">#4A148C</color>
-    <color name="lateEvening">#283593</color>
+
+    <color name="morning1">#81D4FA</color>
+    <color name="morning2">#7CC3F0</color>
+    <color name="morning3">#77B1E6</color>
+    <color name="morning4">#72A0DC</color>
+    <color name="afternoon1">#6D8ED2</color>
+    <color name="afternoon2">#687DC8</color>
+    <color name="afternoon3">#636BBE</color>
+    <color name="afternoon4">#5E5AB4</color>
+    <color name="evening1">#5948AA</color>
+    <color name="evening2">#5437A0</color>
+    <color name="evening3">#4F2596</color>
+    <color name="evening4">#4A148C</color>
 </resources>
