@@ -8,7 +8,7 @@ For location the application is using GooglePlayServices and their Location API.
 Screen color changes depending on time of day, displays the next 23 hours of weather as well as a summary for the next 7 days. 
 
 ###The Application
-![The App](http://i.imgur.com/HtsK8bM.gif "Cool app :)")
+![The App](http://i.imgur.com/e66NNB3.gif "Cool app :)")
 
 
 ###Download
