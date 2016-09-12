@@ -15,4 +15,4 @@ Screen color changes depending on time of day, displays the next 23 hours of wea
 Download the APK file here, I only use the GPS or Wi-Fi location, no other information is grabbed from the user. [DOWNLOAD](https://www.dropbox.com/s/rfet8bsw6w1facs/Weatherly%20By%20Luis%20Padron.apk?dl=0)
 
 ####Visit My Site
-Visit my site over at [lpadron.me](https://www.lpadron.me), I have some informative tutorials and stuff, yah.
+Visit my site over at [luispadron.com](https://luispadron.com/), I have some informative tutorials and stuff, yah.
